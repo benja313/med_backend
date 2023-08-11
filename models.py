@@ -14,7 +14,6 @@ class AcademicEducation(models.Model):
     academic_education_city = models.CharField(max_length=45, blank=True, null=True)
     academic_education_country = models.CharField(max_length=45, blank=True, null=True)
     academic_education_professional = models.ForeignKey('Users', models.DO_NOTHING)
-    trial122 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -32,7 +31,6 @@ class Appointments(models.Model):
     appointment_service = models.ForeignKey('Services', models.DO_NOTHING)
     appointment_first_time = models.IntegerField()
     appointment_checkout = models.ForeignKey('Checkouts', models.DO_NOTHING, blank=True, null=True)
-    trial125 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -44,7 +42,6 @@ class Certifications(models.Model):
     certification_name = models.CharField(max_length=45)
     certification_path = models.CharField(max_length=45, blank=True, null=True)
     certificacion_institution = models.CharField(max_length=45)
-    trial129 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -61,7 +58,6 @@ class Checkouts(models.Model):
     checkout_buy_order = models.CharField(max_length=45, blank=True, null=True)
     checkout_vci = models.CharField(max_length=45, blank=True, null=True)
     checkout_card_detail = models.CharField(max_length=45, blank=True, null=True)
-    trial129 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -79,7 +75,6 @@ class Institutions(models.Model):
     institution_lat = models.CharField(max_length=45, blank=True, null=True)
     institution_lon = models.CharField(max_length=45, blank=True, null=True)
     institution_user = models.ForeignKey('Users', models.DO_NOTHING)
-    trial129 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -91,7 +86,6 @@ class Insurances(models.Model):
     insurance_name = models.CharField(max_length=45)
     insurance_description = models.CharField(max_length=45)
     insurances_type = models.CharField(max_length=45)
-    trial129 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -103,7 +97,6 @@ class Locks(models.Model):
     lock_date_start = models.DateTimeField()
     lock_date_end = models.DateTimeField()
     lock_user = models.ForeignKey('Users', models.DO_NOTHING)
-    trial129 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -114,7 +107,6 @@ class Multimedia(models.Model):
     multimedia_id = models.IntegerField(primary_key=True)
     multimedia_path = models.CharField(max_length=45)
     multimedia_type = models.ForeignKey('TypeMultimedia', models.DO_NOTHING)
-    trial129 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -125,7 +117,6 @@ class Preofessions(models.Model):
     profession_id = models.IntegerField(primary_key=True)
     profesion_name = models.CharField(max_length=45)
     profesion_description = models.CharField(max_length=45)
-    trial129 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -136,7 +127,6 @@ class Profesionals(models.Model):
     profesional_id = models.AutoField(primary_key=True)
     profesional_name = models.CharField(max_length=45)
     profesional_description = models.CharField(max_length=45)
-    trial129 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -146,7 +136,6 @@ class Profesionals(models.Model):
 class RelInstitutionsTypePayment(models.Model):
     institution = models.ForeignKey(Institutions, models.DO_NOTHING)
     type_payment = models.ForeignKey('TypePayment', models.DO_NOTHING)
-    trial129 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -156,7 +145,6 @@ class RelInstitutionsTypePayment(models.Model):
 class RelProfessionalInsurance(models.Model):
     user = models.ForeignKey('Users', models.DO_NOTHING)
     insurance = models.ForeignKey(Insurances, models.DO_NOTHING)
-    trial129 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -166,7 +154,6 @@ class RelProfessionalInsurance(models.Model):
 class RelUserCetification(models.Model):
     user = models.ForeignKey('Users', models.DO_NOTHING)
     certification = models.ForeignKey(Certifications, models.DO_NOTHING, blank=True, null=True)
-    trial129 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -176,7 +163,6 @@ class RelUserCetification(models.Model):
 class RelUserMultimedia(models.Model):
     user = models.ForeignKey('Users', models.DO_NOTHING)
     multimedia = models.ForeignKey(Multimedia, models.DO_NOTHING)
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -186,7 +172,6 @@ class RelUserMultimedia(models.Model):
 class RelUserRole(models.Model):
     user = models.ForeignKey('Users', models.DO_NOTHING)
     role = models.ForeignKey('Roles', models.DO_NOTHING)
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -196,7 +181,6 @@ class RelUserRole(models.Model):
 class RelUserSkill(models.Model):
     user = models.ForeignKey('Users', models.DO_NOTHING)
     skill = models.ForeignKey('Skills', models.DO_NOTHING)
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -206,7 +190,6 @@ class RelUserSkill(models.Model):
 class RelUserSpecialty(models.Model):
     user = models.ForeignKey('Users', models.DO_NOTHING)
     speciality = models.ForeignKey('Specialties', models.DO_NOTHING)
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -218,7 +201,6 @@ class Roles(models.Model):
     rol_name = models.CharField(max_length=45)
     rol_description = models.CharField(max_length=45)
     rol_delete = models.IntegerField(blank=True, null=True)
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -232,7 +214,6 @@ class Schedules(models.Model):
     schedule_day = models.IntegerField()
     schedule_institution = models.ForeignKey(Institutions, models.DO_NOTHING, db_column='schedule_institution')
     schedule_status = models.IntegerField()
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -245,7 +226,6 @@ class Services(models.Model):
     service_weeks_enable = models.IntegerField()
     service_institution = models.ForeignKey(Institutions, models.DO_NOTHING, blank=True, null=True)
     service_price = models.FloatField()
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -256,7 +236,6 @@ class Skills(models.Model):
     skill_id = models.IntegerField(primary_key=True)
     skill_name = models.CharField(max_length=45)
     skill_description = models.CharField(max_length=45)
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -267,7 +246,6 @@ class Specialties(models.Model):
     specialty_id = models.IntegerField(primary_key=True)
     specialty_name = models.CharField(max_length=45)
     specialty_description = models.CharField(max_length=45)
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -278,7 +256,6 @@ class TypeInsurances(models.Model):
     type_insurance_id = models.IntegerField(primary_key=True)
     type_insurance_name = models.CharField(max_length=45)
     type_insurance_description = models.CharField(max_length=45)
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -289,7 +266,6 @@ class TypeMultimedia(models.Model):
     type_multi_id = models.IntegerField(primary_key=True)
     type_multi_name = models.CharField(max_length=45)
     type_multi_description = models.CharField(max_length=45)
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -299,7 +275,6 @@ class TypeMultimedia(models.Model):
 class TypePayment(models.Model):
     type_payment_id = models.IntegerField(primary_key=True)
     type_payment_name = models.CharField(max_length=45)
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -325,7 +300,6 @@ class Users(models.Model):
     user_birthdate = models.DateTimeField()
     user_insurance = models.IntegerField(blank=True, null=True)
     user_num_sis = models.IntegerField(blank=True, null=True)
-    trial132 = models.CharField(max_length=1, blank=True, null=True)
 
     class Meta:
         managed = False
