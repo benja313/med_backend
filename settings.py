@@ -13,6 +13,18 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import academic_education.apps
+import appointment.apps
+import certification.apps
+import checkout.apps
+import institution.apps
+import insurance.apps
+import lock.apps
+import multimedia.apps
+import profession.apps
+import professional.apps
+import rol.apps
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
@@ -38,7 +50,25 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_seed',
     'corsheaders',
-    'user.apps.UserConfig'
+    'user.apps.UserConfig',
+    'type_payment.apps.TypePaymentConfig',
+    'type_multimedia.apps.TypeMultimediaConfig',
+    'type_insurance.apps.TypeInsuranceConfig',
+    'specialtie.apps.SpecialtieConfig',
+    'skill.apps.SkillConfig',
+    'service.apps.ServiceConfig',
+    'schedule.apps.ScheduleConfig',
+    'rol.apps.RolConfig',
+    'professional.apps.ProfessionalConfig',
+    'profession.apps.ProfessionConfig',
+    'multimedia.apps.MultimediaConfig',
+    'lock.apps.LockConfig',
+    'insurance.apps.InsuranceConfig',
+    'institution.apps.InstitutionConfig',
+    'checkout.apps.CheckoutConfig',
+    'certification.apps.CertificationConfig',
+    'appointment.apps.AppointmentConfig',
+    'academic_education.apps.AcademicEducationConfig',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +109,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'med_v1',
         'USER': 'postgres',
-        'PASSWORD':'med',
+        'PASSWORD': 'med',
         'HOST': 'localhost',
         'PORT': '5432'
     }

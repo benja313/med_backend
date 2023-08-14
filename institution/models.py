@@ -1,4 +1,5 @@
 from django.db import models
+from user.models import Users
 
 # Create your models here.
 class Institutions(models.Model):
@@ -11,8 +12,7 @@ class Institutions(models.Model):
     institution_street = models.CharField(max_length=45, blank=True, null=True)
     institution_lat = models.CharField(max_length=45, blank=True, null=True)
     institution_lon = models.CharField(max_length=45, blank=True, null=True)
-    institution_user = models.ForeignKey('Users', models.DO_NOTHING)
-    trial129 = models.CharField(max_length=1, blank=True, null=True)
+    institution_user = models.ForeignKey(Users, models.DO_NOTHING)
 
     class Meta:
         managed = False
