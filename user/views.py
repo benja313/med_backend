@@ -17,13 +17,12 @@ from .models import Users
 # Create your viewss here.
 @api_view(['GET'])
 def index(request):
-    serializer_context = {
-        'request': Request(request),
-    }
-    users = Users.objects.all()
-    #estaciones = EstacionModel.objects.select_related('volcan')
-    serializer = UserSerializer(users, many=True)
-
-    #return Response(serializer.data, status=status.HTTP_200_OK)
-    #qs_json = serializers.serialize('json', users)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    try:
+        serializer_context = {
+            'request': Request(request),
+        }
+        users = Users.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response(e, status=status.HTTP_400_BAD_REQUEST)
