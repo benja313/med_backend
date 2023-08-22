@@ -1,7 +1,9 @@
 from django.contrib.auth import login
 from rest_framework import serializers
 
-from .auth import BaseUserManager
+from .auth import BaseUserManager, authenticate
+
+
 from .models import Users
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
@@ -11,11 +13,7 @@ from django.contrib.auth import get_user_model
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = (
-        'id', 'username', 'email', 'user_rut', 'user_dv', 'user_phone', 'password', 'user_lastname',
-        'user_avatar', 'user_delete',
-        'user_token_login', 'user_token_reset', 'user_nationality', 'user_profession_id', 'user_birthdate',
-        'user_insurance', 'user_num_sis')
+        fields = ('id', 'first_name', 'last_name', 'mother_last_name', 'username', 'email', 'password')
 
 class UserCreateSerializer(serializers.ModelSerializer):
     mother_last_name = serializers.CharField(required=False, allow_null=True)
@@ -49,7 +47,7 @@ class UserLoginSerializer(serializers.Serializer):
         diccionario = dict(data)  # Convertir la cadena en un diccionario
         email = diccionario['email']
         password = diccionario['password']
-        user = auth.authenticate(email=email, password=password)
+        user = authenticate(email=email, password=password)
         if user and user.is_active:
             return user
         raise serializers.ValidationError("Incorrect Credentials")
