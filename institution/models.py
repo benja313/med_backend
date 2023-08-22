@@ -2,6 +2,8 @@ from django.db import models
 from user.models import Users
 
 # Create your models here.
+
+
 class Institutions(models.Model):
     institution_id = models.AutoField(primary_key=True)
     institution_name = models.CharField(max_length=45)
