@@ -1,8 +1,8 @@
 from django.contrib.auth import login
 from rest_framework import serializers
 
-from . import auth
-from .models import Users, AuthUser
+from .auth import BaseUserManager
+from .models import Users
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
@@ -17,18 +17,24 @@ class UserSerializer(serializers.ModelSerializer):
         'user_token_login', 'user_token_reset', 'user_nationality', 'user_profession_id', 'user_birthdate',
         'user_insurance', 'user_num_sis')
 
+class UserCreateSerializer(serializers.ModelSerializer):
+    mother_last_name = serializers.CharField(required=False, allow_null=True)
+    class Meta:
+        model = Users
+        fields = ('id', 'first_name', 'last_name', 'mother_last_name', 'username', 'email', 'password')
+
 
 class UserRegisterationSerializer(serializers.ModelSerializer):
     # Serializer class to serialize registration requests and create a new user.
 
     class Meta:
-        model = User
-        fields = ("id", "username", "email", "password")
-        extra_kwargs = {"password": {"write_only": True}}
-
+        model = Users
+        fields = ('id', 'first_name', 'last_name', 'username', 'email', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
-        return auth.create_user(**validated_data)
+        print('registro ant4es de createuser')
+        return User.objects.create_user(**validated_data)
 
 
 class UserLoginSerializer(serializers.Serializer):
@@ -52,6 +58,6 @@ class UserLoginSerializer(serializers.Serializer):
 
 class User2Serializer(serializers.ModelSerializer):
     class Meta:
-        model = AuthUser
+        model = Users
         fields = (
         'id', 'username', 'email', 'password', 'phone')
