@@ -9,17 +9,20 @@ from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 
 
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Users
-        fields = ('id', 'first_name', 'last_name', 'mother_last_name', 'username', 'email', 'password')
+        fields = ('id', 'first_name', 'last_name',
+                  'mother_last_name', 'username', 'email', 'password')
+
 
 class UserCreateSerializer(serializers.ModelSerializer):
     mother_last_name = serializers.CharField(required=False, allow_null=True)
+
     class Meta:
         model = Users
-        fields = ('id', 'first_name', 'last_name', 'mother_last_name', 'username', 'email', 'password')
+        fields = ('id', 'first_name', 'last_name',
+                  'mother_last_name', 'username', 'email', 'password')
 
 
 class UserRegisterationSerializer(serializers.ModelSerializer):
@@ -27,7 +30,7 @@ class UserRegisterationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Users
-        fields = ('id', 'first_name', 'last_name', 'username', 'email', 'password')
+        fields = ('id', 'first_name', 'last_name', 'email', 'password')
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -53,9 +56,8 @@ class UserLoginSerializer(serializers.Serializer):
         raise serializers.ValidationError("Incorrect Credentials")
 
 
-
 class User2Serializer(serializers.ModelSerializer):
     class Meta:
         model = Users
         fields = (
-        'id', 'username', 'email', 'password', 'phone')
+            'id', 'username', 'email', 'password', 'phone')
