@@ -14,7 +14,8 @@ class Institutions(models.Model):
     institution_street = models.CharField(max_length=45, blank=True, null=True)
     institution_lat = models.CharField(max_length=45, blank=True, null=True)
     institution_lon = models.CharField(max_length=45, blank=True, null=True)
-    institution_user = models.ForeignKey(Users, models.DO_NOTHING)
+    updated_at = models.DateTimeField(blank=True, null=True)
+    users = models.ManyToManyField(Users, related_name='institutions')
 
     class Meta:
         managed = False
