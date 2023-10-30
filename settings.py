@@ -116,7 +116,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'med_v1',
         'USER': 'postgres',
-        'PASSWORD': '123456',
+        'PASSWORD': 'med',
         'HOST': 'localhost',
         'PORT': '5432'
     }
@@ -167,7 +167,7 @@ REST_FRAMEWORK = {
     ),
 }
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=15),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=14),
     "ROTATE_REFRESH_TOKENS": True,
     "BLACKLIST_AFTER_ROTATION": True,
