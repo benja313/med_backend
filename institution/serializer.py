@@ -6,7 +6,7 @@ from .models import Institutions
 
 
 class InstitutionsSerializer(serializers.ModelSerializer):
-    users = UserSerializer(many=True)
+   # users = UserSerializer(many=True)
 
     class Meta:
         model = Institutions

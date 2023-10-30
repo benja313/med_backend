@@ -13,10 +13,11 @@ class InstitutionViewSet(viewsets.ModelViewSet):
     queryset = Institutions.objects.all()
     serializer_class = InstitutionsSerializer
 
-    def perform_create(self, serializer):
+    def perform_create(self, request):
         # Obtenemos la lista de usuarios de la solicitud
         users = self.request.data.get('users', [])
 
+        serializer = InstitutionsSerializer(data=request.data)
         # Verificar si los datos del serializador son válidos
         if serializer.is_valid():
             # Guardar la institución
