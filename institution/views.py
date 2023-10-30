@@ -21,6 +21,6 @@ class InstitutionViewSet(viewsets.ModelViewSet):
     def get_queryset(self, request, pk=None):
         # Obtener las instituciones del usuario especificado en el parámetro
         user_id = self.kwargs['pk']
-        institutions = Institutions.objects.filter(id=user_id)
+        institutions = Institutions.objects.filter(users=user_id)
         serializer = InstitutionsSerializer(institutions, many=True)
         return Response(serializer.data)
