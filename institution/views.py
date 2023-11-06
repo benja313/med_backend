@@ -15,20 +15,32 @@ class InstitutionViewSet(viewsets.ModelViewSet):
     lookup_field = 'institution_id'
 
     def perform_create(self, request):
-        # Obtenemos la lista de usuarios de la solicitud
-        users = self.request.data.get('users', [])
+        try:
+            # Obtenemos la lista de usuarios de la solicitud
+            users = self.request.data.get('users', [])
 
-        serializer = InstitutionsSerializer(data=request.data)
-        # Verificar si los datos del serializador son válidos
-        if serializer.is_valid():
-            # Guardar la institución
-            instance = serializer.save()
-            # Establecer la relación Many-to-Many con los usuarios
-            instance.users.set(users)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            # Si los datos no son válidos, devolver una respuesta de error con los detalles de la validación
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            serializer = InstitutionsSerializer(data=request.data)
+            # Verificar si los datos del serializador son válidos
+            if serializer.is_valid():
+                # Guardar la institución
+                instance = serializer.save()
+                # Establecer la relación Many-to-Many con los usuarios
+                instance.users.set(users)
+
+                institutions = Institutions.objects.filter(users=users[0])
+                serializerGet = InstitutionsSerializer(institutions, many=True)
+                return Response(serializerGet.data, status=status.HTTP_201_CREATED)
+            else:
+                # Si los datos no son válidos, devolver una respuesta de error con los detalles de la validación
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        except Institutions.DoesNotExist:
+            # Capturamos una excepción si el objeto no existe en la base de datos
+            return Response({"error": "El objeto no existe."}, status=status.HTTP_404_NOT_FOUND)
+
+        except Exception as e:
+            # Puedes capturar otras excepciones y manejarlas de manera personalizada
+            return Response({"error": "Ha ocurrido un error inesperado."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def get_institutions_users(self, request, pk=None):
         # Obtener las instituciones del usuario especificado en el parámetro
@@ -45,6 +57,9 @@ class InstitutionViewSet(viewsets.ModelViewSet):
         if instance.users.filter(pk=user_id).exists():
             instance.users.remove(user_id)
             instance.save()
-            return Response({"detail": "La relación entre la institución y el usuario ha sido eliminada."}, status=status.HTTP_204_NO_CONTENT)
+
+            institutions = Institutions.objects.filter(users=user_id)
+            serializer = InstitutionsSerializer(institutions, many=True)
+            return Response({"detail": "La relación entre la institución y el usuario ha sido eliminada.", "data": serializer.data}, status=status.HTTP_200_OK)
         else:
             return Response({"detail": "La relación entre la institución y el usuario no existe."}, status=status.HTTP_404_NOT_FOUND)
