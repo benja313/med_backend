@@ -63,3 +63,28 @@ class InstitutionViewSet(viewsets.ModelViewSet):
             return Response({"detail": "La relación entre la institución y el usuario ha sido eliminada.", "data": serializer.data}, status=status.HTTP_200_OK)
         else:
             return Response({"detail": "La relación entre la institución y el usuario no existe."}, status=status.HTTP_404_NOT_FOUND)
+
+    def perform_link(self, request):
+        try:
+            institution_id = request.data.get('institution_id')
+            user_id = request.data.get('user_id')
+
+            print(institution_id)
+            print(user_id)
+            # Busca la institución por el ID proporcionado
+            institution = Institutions.objects.get(
+                institution_id=institution_id)
+            print(institution)
+            user = Users.objects.get(id=user_id)
+            print(user)
+            # Añade el usuario a la relación muchos a muchos con la institución
+            institution.users.add(user)
+
+            institutions = Institutions.objects.filter(users=user_id)
+            serializer = InstitutionsSerializer(institutions, many=True)
+            return Response({"detail": "Usuario vinculado a la institución correctamente.", "data": serializer.data}, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            # Puedes capturar otras excepciones y manejarlas de manera personalizada
+            print(e)
+            return Response({"error": "Ha ocurrido un error inesperado."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
