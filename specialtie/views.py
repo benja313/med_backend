@@ -87,7 +87,7 @@ def searchSpecialties(request):
         return Response(serializer.data, status=status.HTTP_200_OK)
         #return Response(specialties, status=status.HTTP_200_OK)
 
-    return Response('holita',status=status.HTTP_200_OK)
+    return Response([],status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 def get_specialties_users(request, id):
@@ -100,5 +100,3 @@ def get_specialties_users(request, id):
         specialties = Specialties.objects.filter(users=user_id)
         serializer = SpecialtiesSerializer(specialties, many=True)
         return Response(serializer.data)
-
-

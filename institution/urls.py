@@ -11,6 +11,8 @@ urlpatterns = [
         {'get': 'get_institutions_users'}), name='get-institutions-user'),
     path('users/institutions', views.InstitutionViewSet.as_view(
         {'post': 'perform_create'}), name='create-institutions-user'),
+    path('institutions/users', views.InstitutionViewSet.as_view(
+        {'post': 'perform_link'}), name='link-institutions-user'),
     path('institutions/<int:institution_id>/users/<int:user_id>', views.InstitutionViewSet.as_view(
         {'delete': 'delete_user_institution'}), name='delete-user-institution'),
 
