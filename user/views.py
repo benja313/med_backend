@@ -18,6 +18,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import Group
+from specialtie.models import Specialties
 # Create your viewss here.
 @api_view(['GET'])
 def index(request):
@@ -91,4 +93,16 @@ class UserLoginAPIView(GenericAPIView):
         data["tokens"] = {"refresh": str(token), "access": str(token.access_token)}
         return Response(data, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+def getUsersByGroup(request, specialty):
 
+    #estacions = User.objects.values('id_estacion', 'nombre').filter(volcan_id=id)
+    group = Group.objects.get(id=1)
+    users = group.user_set.all()
+    specialties = Specialties.objects.filter(user__in=users)
+    Specialties.objects.get(specialty_id=specialty)
+    #specialty
+    #usuarios = Group.objects.select_related('user')
+    print(usuarios)
+
+    return Response(users, status=status.HTTP_200_OK)

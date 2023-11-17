@@ -14,6 +14,7 @@ urlpatterns = [
     path("login", views.UserLoginAPIView.as_view(), name="login-user"),
     path("register", views.UserRegisterationAPIView.as_view(), name="create-user"),
     path("login2", views.my_view),
+    path('getUsersByGroup/<specialty>', views.getUsersByGroup),
     # path('createUser', views.create),
     # path('deleteUser/<id>', views.destroy),
     # path('updateUser/<id>', views.update)

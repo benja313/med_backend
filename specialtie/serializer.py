@@ -4,7 +4,8 @@ from .models import Specialties
 
 
 class SpecialtiesSerializer(serializers.ModelSerializer):
+    # users = UserSerializer(many=True)
 
     class Meta:
         model = Specialties
-        fields = ('specialty_id', 'specialty_name', 'specialty_description')
+        fields = '__all__'
