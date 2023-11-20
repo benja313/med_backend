@@ -15,7 +15,7 @@ urlpatterns = [
     path('specialties', views.SpecialtieAPIView.as_view(), name='specialtie-api'),
     path('searchSpecialties', views.searchSpecialties),
     path('specialtiesByUser/<id>', views.get_specialties_users),
-##path("register", views.UserRegisterationAPIView.as_view(), name="create-user"),
+    #path("register", views.UserRegisterationAPIView.as_view(), name="create-user"),
     #path("login2", views.my_view),
     # path('createUser', views.create),
     # path('deleteUser/<id>', views.destroy),

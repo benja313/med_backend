@@ -1,11 +1,19 @@
 from django.shortcuts import render
 from django.views.generic import View
 from rest_framework.views import APIView
-from .models import Specialties
-from .serializer import SpecialtiesSerializer
+from .models import Specialties, Users
+from .serializer import SpecialtiesSerializer, SpecialtiesUsersSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import viewsets, status
+from rest_framework import viewsets, status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.response import Response
+from django.http import JsonResponse, HttpResponse
+# Create your views here.
+
 
 class SpecialtiesViewSet(viewsets.ModelViewSet):
     #permission_classes = [IsAuthenticated]
@@ -20,17 +28,13 @@ class SpecialtiesViewSet(viewsets.ModelViewSet):
             users = self.request.data.get('users', [])
 
             serializer = SpecialtiesSerializer(data=request.data)
-            print(serializer)
+
             # Verificar si los datos del serializador son válidos
             if serializer.is_valid():
-                print('es valido')
-                print(serializer)
-                # Guardar la institución
+
                 instance = serializer.save()
-                print('genera la instancia de la especialidad')
                 # Establecer la relación Many-to-Many con los usuarios
                 instance.users.set(users)
-                print('pasa la instacia del usuario')
 
                 specialties = Specialties.objects.filter(users=users[0])
                 serializerGet = SpecialtiesSerializer(specialties, many=True)
@@ -97,6 +101,12 @@ def get_specialties_users(request, id):
         # profesion
         # horarios
 
-        specialties = Specialties.objects.filter(users=user_id)
-        serializer = SpecialtiesSerializer(specialties, many=True)
+        #specialties = Specialties.objects.filter(specialty_id=id)
+        specialties = Specialties.objects.prefetch_related('users', 'users__institutions').all()
+        # 'users__institutions'
+
+        print(specialties)
+
+        serializer = SpecialtiesUsersSerializer(specialties, many=True)
+
         return Response(serializer.data)
