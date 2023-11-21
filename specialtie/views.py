@@ -102,7 +102,7 @@ def get_specialties_users(request, id):
         # horarios
 
         #specialties = Specialties.objects.filter(specialty_id=id)
-        specialties = Specialties.objects.prefetch_related('users', 'users__institutions').all()
+        specialties = Specialties.objects.all().prefetch_related('users', 'users__institutions').filter(specialty_id=id)
         # 'users__institutions'
 
         print(specialties)
