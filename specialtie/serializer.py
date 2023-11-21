@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from .models import Specialties
-from user.serializer import UserSerializer
+from user.serializer import UserSerializer, UserInstitutionsSerializer
 
 
 class SpecialtiesSerializer(serializers.ModelSerializer):
@@ -12,7 +12,7 @@ class SpecialtiesSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class SpecialtiesUsersSerializer(serializers.ModelSerializer):
-        users = UserSerializer(many=True, read_only=True)
+        users = UserInstitutionsSerializer(many=True, read_only=True)
 
         class Meta:
             model = Specialties

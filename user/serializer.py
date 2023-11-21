@@ -3,10 +3,10 @@ from rest_framework import serializers
 
 from .auth import BaseUserManager, authenticate
 
-
 from .models import Users
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from institution.serializer import InstitutionsSerializer
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -45,7 +45,6 @@ class UserLoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
 
     def validate(self, data):
-
         diccionario = dict(data)  # Convertir la cadena en un diccionario
         email = diccionario['email']
         password = diccionario['password']
@@ -60,3 +59,11 @@ class User2Serializer(serializers.ModelSerializer):
         model = User
         fields = (
             'id', 'username', 'email', 'password')
+
+
+class UserInstitutionsSerializer(serializers.ModelSerializer):
+    institutions = InstitutionsSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Users
+        fields = '__all__'
