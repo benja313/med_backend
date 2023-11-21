@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from user.serializer import UserSerializer
+#from user.serializer import UserSerializer
 
 from .models import Institutions
 

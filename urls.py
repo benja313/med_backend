@@ -24,5 +24,6 @@ urlpatterns = [
     path('api/v1/', include('user.urls')),
     path('api/v1/', include('institution.urls')),
     path('api/v1/', include('specialtie.urls')),
+    path('api/v1/', include('skill.urls')),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
